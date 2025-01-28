@@ -1,28 +1,32 @@
 import java.util.Scanner;
 
 public class Main {
+        //definiowanie materiałów przydatnych później w kodzie
         static Scanner scanner = new Scanner(System.in);
         static Station myStation = new Station();
     public static void main(String[] args) {
-        //Default objects
+        //defaultowe obiekty
         Train myTrain = new Train ("Toyota", 2005, 30000.0);
         Train myTrain2 = new Train ("Toyota", 2009, 20000.0);
         Train myTrain3 = new Train ("Mercedes", 2006, 30000.0);
 
-        //adding default objects to station
+        //dodawanie obiektów do stacji
         myStation.addTrain(myTrain);
         myStation.addTrain(myTrain2);
         myStation.addTrain(myTrain3);
 
         while (true) {
+            //wypisywanie pociągow na stacji
             System.out.println("wszystkie pociągi na stacji:");
             myStation.printTrains();
 
+            //wybor operacji na pociągu
             System.out.println("\nwybierz operacje na pociągu:");
             System.out.println("1. szukanie");
             System.out.println("2. usunięcie");
             System.out.println("3. dodanie");
             System.out.println("4. wyjdź z programu");
+
             int chooseOperation = scanner.nextInt();
 
             switch (chooseOperation) {
@@ -47,8 +51,10 @@ public class Main {
         }
     }
 
+    //metoda do wyszukiwania pociągów po różnych parametrach
     public static void searchTrain() {
 
+        //wybor parametrów szukania
         System.out.println("\nChcesz szukać pociągu po:");
         System.out.println("1. Marce");
         System.out.println("2. Roku");
@@ -58,14 +64,17 @@ public class Main {
 
         int searchFailedCheck;
 
+        //wybor po jakim parametrze szukamy
         switch (searchTrain) {
+            //szukanie po marce pociągu
             case 1:
-                System.out.println("wpisz marke");
+                System.out.println("wpisz marke pociagu");
                 String searchBrand = scanner.next();
                 searchFailedCheck = myStation.length();
                 for (int i = 0; i < myStation.length(); i++) {
                     if (searchBrand.equalsIgnoreCase(myStation.getTrainBrand(i))) {
-                        System.out.println("Pociąg z tą marką to: " + myStation.getTrainByInd(i));
+                        int counter = i+1;
+                        System.out.println("Pociąg z tą marką to: " + counter + ". " + myStation.getTrainByInd(i));
                         searchFailedCheck--;
                     }
                 }
@@ -73,27 +82,31 @@ public class Main {
                     System.out.println("Nie znaleziono żadnych pociągów z tą marką");
                 }
                 break;
+            //szukanie po roku produkcji pociągu
             case 2:
-                System.out.println("wpisz rok");
+                System.out.println("wpisz rok produkcji pociagu");
                 int searchYear = scanner.nextInt();
                 searchFailedCheck = myStation.length();
                 for (int i = 0; i < myStation.length(); i++) {
                     if (myStation.getTrainYear(i) == searchYear) {
-                        System.out.println("Pociąg z tym rokiem to: " + myStation.getTrainByInd(i));
+                        int counter = i+1;
+                        System.out.println("Pociąg z tym rokiem produkcji to: " + counter + ". "  + myStation.getTrainByInd(i));
                         searchFailedCheck--;
                     }
                 }
                 if (searchFailedCheck == myStation.length()) {
-                    System.out.println("Nie znaleziono żadnych pociągów z tym rokiem");
+                    System.out.println("Nie znaleziono żadnych pociągów z tym rokiem produkcji");
                 }
                 break;
+            //szukanie po cenie pociągu
             case 3:
                 System.out.println("wpisz cenę");
                 double searchPrice = scanner.nextDouble();
                 searchFailedCheck = myStation.length();
                 for (int i = 0; i < myStation.length(); i++) {
                     if (myStation.getTrainPrice(i) == searchPrice) {
-                        System.out.println("Pociąg z tą ceną to: " + myStation.getTrainByInd(i));
+                        int counter = i+1;
+                        System.out.println("Pociąg z tą ceną to: " + counter + ". "  + myStation.getTrainByInd(i));
                         searchFailedCheck--;
                     }
                 }
@@ -107,6 +120,7 @@ public class Main {
         }
     }
 
+    //metoda do usuwania pociągów
     public static void deleteTrain() {
         System.out.println("\nwpisz numer pociągu ktory chcesz usunąć:");
 
@@ -119,6 +133,7 @@ public class Main {
         }
     }
 
+    //metoda do usuwania pociągów
     public static Train createTrain() {
         System.out.println("\nwpisz marke pociagu ktorego chcesz dodac:");
         String createTrainBrand = scanner.next();
