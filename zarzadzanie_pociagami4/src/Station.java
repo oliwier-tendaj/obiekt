@@ -1,15 +1,19 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Station {
-
+public class Station extends StationNetwork {
     public List<Vehicle> arrayList = new ArrayList<>();
+    String name;
 
-    public Station() {
+    //konstruktor
+    public Station(String name) {
         this.arrayList = arrayList;
+        this.name = name;
     }
 
     //gettery
+    String getStationName() { return this.name; }
+
     public String getTrainBrand(int ind) {
         return arrayList.get(ind).getTrainBrand();
     }
@@ -45,5 +49,10 @@ public class Station {
     //size
     public int size() {
         return arrayList.size();
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

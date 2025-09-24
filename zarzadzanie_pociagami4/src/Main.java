@@ -3,9 +3,13 @@ import java.util.Scanner;
 public class Main {
         //definiowanie materiałów przydatnych później w kodzie
         static Scanner scanner = new Scanner(System.in);
-        static Station myStation = new Station();
+        static StationNetwork myStationNetwork = new StationNetwork();
+        //domyślne stacje
+        static Station myStation = new Station("Warszawa");
+        static Station myStation2 = new Station("Gdańsk");
+        static Station myStation3 = new Station("Rzeszów");
     public static void main(String[] args) {
-        //defaultowe obiekty
+        //domyślne obiekty
         Train myTrain = new Train ("Toyota", 2005, 30000.0);
         Train myTrain2 = new Train ("Toyota", 2009, 20000.0);
         Train myTrain3 = new Train ("Mercedes", 2006, 30000.0);
@@ -17,6 +21,78 @@ public class Main {
         myStation.addTrain(myTrain3);
         myStation.addTrain(myTram);
 
+        //dodawanie stacji do sieci stacji
+        myStationNetwork.addStation(myStation);
+        myStationNetwork.addStation(myStation2);
+        myStationNetwork.addStation(myStation3);
+
+        while (true) {
+
+            //wybor stacji na której będziemy operować
+            System.out.println("\nwybierz stacje na której chcesz wykonać operacje:");
+            myStationNetwork.printStations();
+
+            int chooseStation = scanner.nextInt();
+
+            //loop z iloscią if-ów taką jaka ilość stacji
+            while (true) {
+                if (chooseStation == 1) {
+                    //selectStation(myStation);
+                    break;
+                }
+                if (chooseStation == 2) {
+                    //selectStation(myStation2);
+                    break;
+                }
+                if (chooseStation == 3) {
+                    //selectStation(myStation3);
+                    break;
+                }
+            }
+
+            //wypisywanie pojazdów na stacji
+            //System.out.println("wszystkie pociągi na stacji:");
+            //myStation.printTrains();
+
+            //wybor operacji na pojeździe
+            System.out.println("\nwybierz operacje na pojeździe:");
+            System.out.println("1. szukanie");
+            System.out.println("2. usunięcie");
+            System.out.println("3. dodanie");
+            System.out.println("4. pojedź do następnej stacji i wypisz stan paliwa");
+            System.out.println("5. wyjdź z programu");
+
+            int chooseOperation = scanner.nextInt();
+
+            switch (chooseOperation) {
+                case 1:
+                    searchTrain();
+                    break;
+                case 2:
+                    deleteTrain();
+                    break;
+                case 3:
+                    myStation.addTrain(createTrain());
+                    break;
+                case 4:
+                    myTram.nextStation();
+                    myTram.checkFuel();
+                    break;
+                case 5:
+                    System.out.println("wychodzenie z programu...");
+                    break;
+                default:
+                    System.out.println("został wpisany zły numer operacji");
+                    break;
+            }
+            if (chooseOperation == 6) {
+                break;
+            }
+        }
+    }
+
+    //metoda do wyboru stacji na której będziemy operować
+    public static void selectStation() {
         while (true) {
             //wypisywanie pojazdów na stacji
             System.out.println("wszystkie pociągi na stacji:");
@@ -43,8 +119,8 @@ public class Main {
                     myStation.addTrain(createTrain());
                     break;
                 case 4:
-                    myTram.nextStation();
-                    myTram.checkFuel();
+                    //myTram.nextStation();
+                    //myTram.checkFuel();
                     break;
                 case 5:
                     System.out.println("wychodzenie z programu...");
